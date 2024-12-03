@@ -70,22 +70,34 @@ int main() {
 				room = 4;
 			break;
 		case 6:
-			cout << "your in room 6, you can go north, east, west, and south" << endl;
+			cout << "your in room 6, you can go west, southeast, southwest, and east" << endl;
 			cin >> input;
-			if (input == "north" || input == "go north")
-				room = 6;
-			if (input == "east" || input == "go east")
-				room = 3;
 			if (input == "west" || input == "go west")
 				room = 5;
-			if (input == "south" || input == "go south")
-				room = 2;
+			if (input == "east" || input == "go east")
+				room = 7;
+			if (input == "southwest" || input == "go southwest")
+				room = 4;
+			if (input == "southeast" || input == "go southeast")
+				room = 3;
+			break;
+		case 7:
+			cout << "your in room 7, you can go west and southwest" << endl;
+			cin >> input;
+			if (input == "west" || input == "go west")
+				room = 5;
+			if (input == "east" || input == "go east")
+				room = 7;
 			break;
 		}
 	}//end of game loop
 	cout << "thanks for playing" << endl;
 }//end of main
 
+
+void FirstZombieEncounter() {
+
+}
 
 void FirstZombieEncounter() {
 
