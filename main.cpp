@@ -10,7 +10,7 @@ void NPC();
 void FinalBattle();
 void ItemDropper();
 void Password();
-//glov=bal variables:
+//global variables:
 int points = 0;
 int HP = 150;
 int input;
@@ -24,7 +24,11 @@ int main() {
 	while (input != "quit") {//game loop
 		switch (room) {
 		case 1:
-			cout << "youre in room 1, you can go north" << endl;
+			cout << "You wake up in the middle of a destroyed city, fire everywhere. You see a dragon fly around terrorizing the old city. You see a building that is still standing north from here." << endl;
+			cout << "        |   _   _" << endl;
+			cout << "  .|  . x .|.|-|.|  _" << endl;
+		    cout << "   |/ ./.\-/.\-|.|.|.| |" << endl;
+			cout << "~~~|.|_|.|_|.|.|.|_|.|~~~" << endl;
 			getline(cin, input);
 			if (input == "north" || input == "go north")
 				room = 2;
@@ -32,7 +36,7 @@ int main() {
 				cout << "thats not an option" << endl;
 			break;
 		case 2:
-			cout << "your in room 2, you can go northeast, northwest, and south" << endl;
+			cout << "You get into a old wooden building that is on the verge of collapsing, It has many bottles on the wall " << endl;
 			getline(cin, input);
 			battleSys;
 			if (input == "northeast" || input == "go northeast")
@@ -91,31 +95,37 @@ int main() {
 				room = 7;
 			else if (input == "southwest" || input == "go southwest")
 				room = 4;
-			else if (input == "southeast" || input == "go southeast")
+			else if (input == "southeast" || input.compare("go southeast")==0)
 				room = 3;
-			else if (input == "dragon" || input == "take dragon");
+			else if (input == "dragon" || input == "take dragon") {
 
-			else if (items[2] == "DG") {
-				cout << "The dragon has arrived to take you" << endl;
-				items[2] = ""; //erases DG from inventory
-				room = 8;
+				if (items[2] == "DG") {
+					cout << "The dragon has arrived to take you" << endl;
+					items[2] = ""; //erases DG from inventory
+					room = 8;
+				}
+				else {
+					cout << "the dragon is not there" << endl;
+				}
 			}
-			else {
-				cout << "the dragon is not there" << endl;
+			else if (input == "Machine" || input == "GoToMachine") {
+			
+
+				if (items[9] == "Key Stone") {
+					cout << "you destroyed the machine revealing a grate" << endl;
+					items[9] = ""; //erases key stone from inventory
+					room = 11;
+				}
+				else {
+					cout << "Theres a machine blocking the grate" << endl;
+					room = 13;
+				}
+
+
 			}
-			else if (input == "Machine" || input == "go to machine")
-			room = 12;
-			else if (items[9] == "Key Stone") {
-			cout << "you destroyed the machine revealing a grate" << endl;
-			items[9] = ""; //erases key stone from inventory
-			room = 11;
-			}
-			else {
-			cout << "Theres a machine blocking the grate" << endl;
-			}
-			cout << "thats not an option" << endl;
-			else if (input == "Machine" || input == "go to machine")
-			room = 13;
+			
+			
+				
 			break;
 		case 7:
 			cout << "your in room 7, you can go west and southwest" << endl;
@@ -155,17 +165,8 @@ int main() {
 			else
 				cout << "thats not an option" << endl;
 			break;
-		case 12:
-			cout << "your at the machine" << endl;
-			getline(cin, input);
-			Password();
-			if (input == "ILOVEPIBBLE")
-				items[9] = "Key stone";
-			else
-				cout << "wrong password!" << endl;
-			break;
 		case 13:
-			cout << "your at the computer, What is the password" << endl;
+			cout << "your at the machine" << endl;
 			getline(cin, input);
 			Password();
 			if (input == "ILOVEPIBBLE")
@@ -191,26 +192,9 @@ int main() {
 }//end of main
 
 //Function definitions
-
-void NPC() {
-	int num = rand() % 100 + 1; //gives num 1-100
-	if (num < 20)
-		cout << "the gnome says: was an adventurer until i took an arrow to the knee" << endl;
-	else if (num < 30)
-		cout << "the gnome says:The evil king used to be nice but then he lost his favorite frog" << endl;
-	else if (num < 35)
-		cout << "the gnome says:the first number in the secret code is 2" << endl;
-	else if (num < 50) {
-		cout << "the gnome smiles and gives you 5 gold" << endl;
-		points += 5;
-	}
-	else if (num < 60)
-		cout << " the gnome gives you a health potion" << endl;
-	items[4] = "health potion";
-}
 void ItemDropper() {
 	int num = rand() % 100 + 1;
-	if (num < 15) {
+	if (num < 25) {
 		cout << " you obtained a dragon control" << endl;
 		items[2] = "DG";
 	}
