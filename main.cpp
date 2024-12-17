@@ -15,7 +15,7 @@ void combineParts();
 int points = 0;
 int HP = 150;
 int input;
-int room = 6;
+int room = 1;
 int main() {
 
 	string input = "potato";
@@ -97,7 +97,7 @@ int main() {
 				cout << "thats not an option" << endl;
 			break;
 		case 6:
-			cout << "you see a lonely house that seems to be untouched compared to everything else you see a computer and a strange machine with two archways one is southwest and the other is southeast. There are two ruined apartments one is east and the other is west" << endl;
+			cout << "you see a lonely house that seems to be untouched compared to everything else you see a computer and a strange machine with two archways one is southwest and the other is southeast. There are two ruined apartments one is east and the other is west, Then a dragon roars whith a seat on his back" << endl;
 			getline(cin, input);
 			findPart();
 			if (input == "west" || input == "go west")
@@ -198,7 +198,7 @@ int main() {
 //Function definitions
 void FinalBattle() {
 	system("color 04");
-	int Dragon = 0;
+	int Dragon = 500;
 	int DragonDMG = 0;
 	int PlayerDMG = 0;
 	char dummy;
@@ -247,56 +247,138 @@ void Password() {
 	}
 }
 void findPart() {
-	// Check if any part can be found in the current room
-	if (room == 2 && items[0] == "") {
-		cout << "You found a nozzle!" << endl;
-		items[0] = "nozzle";  // Add Blade to inventory
+	// Check the current room and allow the user to choose a part to find
+	if (room == 2) {
+		if (items[0] == "") {
+			cout << "You are in the old wooden building. You can search for parts here." << endl;
+			cout << "Would you like to search for a nozzle? (yes/no)" << endl;
+			string response;
+			getline(cin, response);
+			if (response == "yes") {
+				cout << "You found a nozzle!" << endl;
+				items[0] = "nozzle";  // Add nozzle to inventory
+			}
+			else {
+				cout << "You decided not to search for the nozzle." << endl;
+			}
+		}
 	}
-	else if (room == 3 && items[1] == "") {
-		cout << "You found a Handle!" << endl;
-		items[1] = "Handle";  // Add Handle to inventory
+	else if (room == 3) {
+		if (items[1] == "") {
+			cout << "You are in the room with a knight skeleton. You can search for parts here." << endl;
+			cout << "Would you like to search for a handle? (yes/no)" << endl;
+			string response;
+			getline(cin, response);
+			if (response == "yes") {
+				cout << "You found a handle!" << endl;
+				items[1] = "Handle";  // Add handle to inventory
+			}
+			else {
+				cout << "You decided not to search for the handle." << endl;
+			}
+		}
 	}
-	else if (room == 9 && items[2] == "") {
-		cout << "You found a chamber!" << endl;
-		items[2] = "chamber";  // Add Guard to inventory
+	else if (room == 9) {
+		if (items[2] == "") {
+			cout << "You are in a mysterious room. You can search for parts here." << endl;
+			cout << "Would you like to search for a chamber? (yes/no)" << endl;
+			string response;
+			getline(cin, response);
+			if (response == "yes") {
+				cout << "You found a chamber!" << endl;
+				items[2] = "chamber";  // Add chamber to inventory
+			}
+			else {
+				cout << "You decided not to search for the chamber." << endl;
+			}
+		}
 	}
-	// For Shield parts:
-	else if (room == 5 && items[3] == "") {
-		cout << "You found the visor!" << endl;
-		items[3] = "visor";  // Add Wood to inventory
+	else if (room == 5) {
+		if (items[3] == "") {
+			cout << "You are in the ruins of apartments. You can search for parts here." << endl;
+			cout << "Would you like to search for a visor? (yes/no)" << endl;
+			string response;
+			getline(cin, response);
+			if (response == "yes") {
+				cout << "You found a visor!" << endl;
+				items[3] = "visor";  // Add visor to inventory
+			}
+			else {
+				cout << "You decided not to search for the visor." << endl;
+			}
+		}
 	}
-	else if (room == 6 && items[4] == "") {
-		cout << "You found Metal!" << endl;
-		items[4] = "Metal";  // Add Metal to inventory
+	else if (room == 6) {
+		if (items[4] == "") {
+			cout << "You are in the house with a machine. You can search for parts here." << endl;
+			cout << "Would you like to search for metal? (yes/no)" << endl;
+			string response;
+			getline(cin, response);
+			if (response == "yes") {
+				cout << "You found metal!" << endl;
+				items[4] = "Metal";  // Add metal to inventory
+			}
+			else {
+				cout << "You decided not to search for metal." << endl;
+			}
+		}
 	}
-	else if (room == 7 && items[5] == "") {
-		cout << "You found a eagle statue!" << endl;
-		items[5] = "eagle statue";  // Add Leather to inventory
+	else if (room == 7) {
+		if (items[5] == "") {
+			cout << "You are in the ruined apartments. You can search for parts here." << endl;
+			cout << "Would you like to search for an eagle statue? (yes/no)" << endl;
+			string response;
+			getline(cin, response);
+			if (response == "yes") {
+				cout << "You found an eagle statue!" << endl;
+				items[5] = "eagle statue";  // Add eagle statue to inventory
+			}
+			else {
+				cout << "You decided not to search for the eagle statue." << endl;
+			}
+		}
 	}
 	else {
-		cout << "No parts found here." << endl;
+		cout << "There are no parts to find here." << endl;
 	}
 }
+
 void combineParts() {
-	// Combine parts to create a Sword (Blade, Handle, Guard)
-	if (items[0] == "nozzl3" && items[1] == "Handle" && items[2] == "chamber") {
-		cout << "You have all the parts! Combining them into a Sword..." << endl;
-		items[0] = "";  // Remove individual parts after combining
-		items[1] = "";
-		items[2] = "";
-		items[6] = "Sword";  // Final combined item
-		cout << "You now have a Raygun!" << endl;
+	string command;
+	cout << "What would you like to combine? (type 'combine Raygun' or 'combine shield')" << endl;
+	getline(cin, command);
+
+	// Combine parts to create a Sword
+	if (command == "combine Raygun") {
+		if (items[0] == "nozzle" && items[1] == "Handle" && items[2] == "chamber") {
+			cout << "You have all the parts! Combining them into a Sword..." << endl;
+			// Remove parts from inventory after combining
+			items[0] = "";  // Nozzle
+			items[1] = "";  // Handle
+			items[2] = "";  // Chamber
+			items[6] = "Raygun";  // Add Sword to inventory
+			cout << "You now have a Sword!" << endl;
+		}
+		else {
+			cout << "You don't have all the parts to make a sword yet!" << endl;
+		}
 	}
-	// Combine parts to create a Shield (Wood, Metal, Leather)
-	else if (items[3] == "Wood" && items[4] == "Metal" && items[5] == "Leather") {
-		cout << "You have all the parts! Combining them into a Shield..." << endl;
-		items[3] = "";  // Remove individual parts after combining
-		items[4] = "";
-		items[5] = "";
-		items[7] = "Shield";  // Final combined item
-		cout << "You now have a Shield!" << endl;
+	// Combine parts to create a Shield
+	else if (command == "combine shield") {
+		if (items[3] == "visor" && items[4] == "Metal" && items[5] == "eagle statue") {
+			cout << "You have all the parts! Combining them into a Shield..." << endl;
+			// Remove parts from inventory after combining
+			items[3] = "";  // Visor
+			items[4] = "";  // Metal
+			items[5] = "";  // Eagle statue
+			items[7] = "Shield";  // Add Shield to inventory
+			cout << "You now have a Shield!" << endl;
+		}
+		else {
+			cout << "You don't have all the parts to make a shield yet!" << endl;
+		}
 	}
 	else {
-		cout << "You don't have all the parts yet. Keep searching!" << endl;
+		cout << "Invalid command or you don't have the necessary parts!" << endl;
 	}
 }
