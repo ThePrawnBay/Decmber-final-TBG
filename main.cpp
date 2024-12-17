@@ -16,7 +16,9 @@ int points = 0;
 int HP = 150;
 int input;
 int room = 1;
+bool hasAcessToMachine;
 int main() {
+
 
 	string input = "potato";
 	//stuff here runs every turn!
@@ -29,7 +31,7 @@ int main() {
 	while (input != "quit") {//game loop
 		switch (room) {
 		case 1:
-			cout << "You wake up in the middle of a destroyed city, fire, smoke, everywhere. You see a dragon fly around terrorizing the old city. You see a building that is still standing north from here." << endl;
+			cout << "You wake up in the middle of a destroyed city, fire, smoke, everywhere. You see a dragon fly around terrorizing the old city. You see a building that is still standing north from here and south but there is rubble." << endl;
 			cout << "        |   _   _" << endl;
 			cout << "  .|  . x .|.|-|.|  _" << endl;
 			cout << "   |/ ./.\\-/.\\-|.|.|.| |" << endl;
@@ -38,6 +40,15 @@ int main() {
 			findPart();
 			if (input == "north" || input == "go north")
 				room = 2;
+			if (input == "Rubble" || input == "Move Rubble")
+				if (items[9] == "key stone") {
+					cout << "you move the rubble with the key stone" << endl;
+					items[9] = ""; //erases key from inventory
+					room = 11;
+				}
+				else {
+					cout << "the Rubble blocks the way" << endl;
+				}
 			else
 				cout << "thats not an option" << endl;
 			break;
@@ -51,7 +62,7 @@ int main() {
 			else if (input == "northwest" || input == "go northwest")
 				room = 4;
 			else if (input == "south" || input == "go south")
-				room = 2;
+				room = 1;
 			else
 				cout << "thats not an option" << endl;
 			break;
@@ -71,7 +82,7 @@ int main() {
 				cout << "thats not an option" << endl;
 			break;
 		case 4:
-			cout << "the archway is old made by stone bricks and spider webs everywhere as you go further there is a skeleton that was a knight you see four openings north east west and south" << endl;
+			cout << "the archway is old made by stone bricks and spider webs everywhere as you go further a rat runs by and it scared you hahaha scaredy cat! you then see four openings north east west and south" << endl;
 			getline(cin, input);
 			findPart();
 			if (input == "north" || input == "go north")
@@ -112,8 +123,6 @@ int main() {
 				room = 9;
 			}
 			else if (input == "Machine" || input == "GoToMachine") {
-
-
 				if (items[9] == "Key Stone") {
 					cout << "you destroyed the machine revealing a grate" << endl;
 					items[9] = ""; //erases key stone from inventory
@@ -169,13 +178,13 @@ int main() {
 				cout << "thats not an option" << endl;
 			break;
 		case 13:
-			cout << "your at a very old machine that has a type writer awaiting you input as it blinks green." << endl;
+			cout << "your at the Computer" << endl;
 			getline(cin, input);
-			Password();
-			if (input == "ILOVEPIBBLE")
-				items[9] = "Key stone";
-			else
-				cout << "wrong password!" << endl;
+			if (hasAcessToMachine != true)
+				Password();
+			items[9] == "Key stone";
+			if (input == "back" || input == "go back")
+				room = 6;
 			break;
 		case 11:
 			FinalBattle();
@@ -234,16 +243,29 @@ void FinalBattle() {
 		system("pause");
 	}
 	if (HP > 0)
-		cout << "you have won" << endl;
+		cout << "you have won and found PIBBLE" << endl;
 	PlaySound(TEXT("cheering.wav"), NULL, SND_FILENAME);
 }
 void Password() {
-	string choice = "gio";
-	while (choice != "q") {
-		cout << "type back to leave" << endl;
-		cin >> choice;
-		if (choice != "ILOVEPIBBLE")
-			cout << "press q to leave!" << endl;
+	string correctPassword = "ILOVEPIBBLE";
+	string inputPassword;
+
+	while (inputPassword != correctPassword) {
+		cout << "You have arrived at the computer. To use it, you need to enter the correct password.." << endl;
+
+		// Prompt for password input
+		cout << "Enter password: ";
+		getline(cin, inputPassword);
+
+		// Check if the password is correct
+		if (inputPassword == correctPassword) {
+			hasAcessToMachine = true;
+			cout << "Access granted. You can now use the machine, Because of the keystone" << endl;
+			items[9] = "Key stone";
+		}
+		else {
+			cout << "Incorrect password. Access denied." << endl;
+		}
 	}
 }
 void findPart() {
@@ -308,7 +330,7 @@ void findPart() {
 			}
 		}
 	}
-	else if (room == 6) {
+	else if (room == 8) {
 		if (items[4] == "") {
 			cout << "You are in the house with a machine. You can search for parts here." << endl;
 			cout << "Would you like to search for metal? (yes/no)" << endl;
@@ -338,9 +360,6 @@ void findPart() {
 			}
 		}
 	}
-	else {
-		cout << "There are no parts to find here." << endl;
-	}
 }
 
 void combineParts() {
@@ -357,10 +376,10 @@ void combineParts() {
 			items[1] = "";  // Handle
 			items[2] = "";  // Chamber
 			items[6] = "Raygun";  // Add Sword to inventory
-			cout << "You now have a Sword!" << endl;
+			cout << "You now have a Raygun!" << endl;
 		}
 		else {
-			cout << "You don't have all the parts to make a sword yet!" << endl;
+			cout << "You don't have all the parts to make a Raygun yet!" << endl;
 		}
 	}
 	// Combine parts to create a Shield
